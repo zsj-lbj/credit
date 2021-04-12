@@ -37,10 +37,8 @@ def opinion_pie(pos_num,neu_num,neg_num):
 def sequence_dia(stock_id,startdate,enddate):
 
     pos_que = models.enterprise_sentiment.objects.filter(stock_id=stock_id, date__gte=startdate, date__lte=enddate,enterprise_sentiment=1).values_list("date", "enterprise_sentiment")
-    neu_que = models.enterprise_sentiment.objects.filter(stock_id=stock_id, date__gte=startdate, date__lte=enddate,
-    enterprise_sentiment=0).values_list("date", "enterprise_sentiment")
-    neg_que = models.enterprise_sentiment.objects.filter(stock_id=stock_id, date__gte=startdate, date__lte=enddate,
-    enterprise_sentiment=-1).values_list("date", "enterprise_sentiment")
+    neu_que = models.enterprise_sentiment.objects.filter(stock_id=stock_id, date__gte=startdate, date__lte=enddate,enterprise_sentiment=0).values_list("date", "enterprise_sentiment")
+    neg_que = models.enterprise_sentiment.objects.filter(stock_id=stock_id, date__gte=startdate, date__lte=enddate,enterprise_sentiment=-1).values_list("date", "enterprise_sentiment")
 
     if len(pos_que)>0:
         pos_df = pd.DataFrame(list(pos_que), columns=["date", "enterprise_sentiment"])
@@ -138,5 +136,76 @@ def cloud_pic(stock_id,startdate,enddate):
 
     return cloud_img
 
+chinese_col = ['股票代码','总股本','应收账款周转天数','总资产报酬率','历史授信额度','年化波动率%','企业规模','主体最新信用评级变动方向','最新授信额度','现金流量/流动负债','区间诉讼次数','情感指数','股本回报率','市净率PB（LF）','净利润/营业总收入','综合评级（数值）','存货周转天数','现金流量/营业收入','每股营业总收入','基本每股收益（增长率）','BETA值','股东户数','流动比率','流动资产/总资产','资产负债率','总市值（ 元）','平均收益率%','员工总数','注册资本（元）','应付账款周转天数','市销率PS（TTM）','主体最新信用评级','信用评级']
+english_col = ['stock_id','tot_stock','day_accpay','roa','his_creidt','volatility','scale','credit_change','new_credit','cash_liability','laysuit_num','sentiment','roe','pb','inc_rev','com_grade','day_inventory','cash_rev','income','eps_incre','beta','shareholder_num','liquidity_ratio','liquidity_asset','debt_asset','value','yield_field','staff_num','reg_cap','day_accrec','ps','credit_num','credit_str']
+eng_chi = {}
+
+for i in range(len(chinese_col)):
+    dic = {english_col[i]:chinese_col[i]}
+    eng_chi.update(dic)#用字典来存储英文字段和中文字段的对照关系
+
+def element_diag(stock_id):
+    obj = models.element_contrib.objects.filter(stock_id=stock_id).values()
+    obj = obj[0]#queryset转字典
+    field_name = []
+    field_value = []
+    chi_field_name =[]
+    for item in obj.items():
+        if item[0] == 'stock_id' or  item[0]=='credit_str':
+            continue
+        field_name.append(item[0])
+    for key in field_name:
+        field_value.append(obj[key])
+
+    for i in field_name:
+        chi_field_name.append(eng_chi[i])#把英文字段转换成中文字段
+
+    df = pd.DataFrame({'字段名':chi_field_name,'值':field_value})
+    df = df.sort_values(by=['值'],ascending=False)
+    top_10 = plt_bar(df.iloc[0:10,0],df.iloc[0:10,1],'成分贡献图','属性','贡献度')
+    mid_10 = plt_bar(df.iloc[10:20,0],df.iloc[10:20,1],'成分贡献图','属性','贡献度')
+    last_10 = plt_bar(df.iloc[20:,0],df.iloc[20:,1],'成分贡献图','属性','贡献度')
+    element_par_info = [top_10,mid_10,last_10]
+    print(df.iloc[0:10,0])
+    element_pie_info = plt_pie(df.iloc[0:5,1],df.iloc[0:5,0])
 
 
+    return element_par_info,element_pie_info
+
+def plt_bar(x,y,title,xlabel,ylabel):
+    plt.figure(figsize=(6, 9))
+    plt.rcParams['font.sans-serif'] = ["SimHe", "KaiTi", "SimHei", "FangSong"]
+    plt.title(title, fontsize=20)  # 标题，并设定字号大小
+    plt.xlabel(xlabel, fontsize=1)  # 设置x轴，并设定字号大小
+    plt.xticks(rotation=315)
+    plt.ylabel(ylabel, fontsize=14)  # 设置y轴，并设定字号大小
+    plt.bar(x, y, alpha=0.6, width=0.8, facecolor='skyblue',
+            edgecolor='darkblue')
+    buffer = BytesIO()
+    plt.savefig(buffer)
+    plot_data = buffer.getvalue()
+    imb = base64.b64encode(plot_data)  # 对plot_data进行编码
+    ims = imb.decode()
+    img_info = "data:image/png;base64," + ims
+    buffer.close()
+    plt.close()
+    return img_info
+
+def plt_pie(size,labels):
+    plt.rcParams['font.sans-serif'] = ["SimHe", "KaiTi", "SimHei", "FangSong"]
+    plt.figure(figsize=(6,9))
+    colors = ['dodgerblue', 'orangered', 'limegreen', 'cyan', 'gold']
+    plt.pie(size, labels=labels, colors=colors,autopct='%1.1f%%', shadow=False, startangle=150,pctdistance = 0.8)
+    plt.legend(loc=3)
+
+    # plt.axis('equal')
+
+    buffer = BytesIO()
+    plt.savefig(buffer)
+    plot_data = buffer.getvalue()
+    imb = base64.b64encode(plot_data)  # 对plot_data进行编码
+    ims = imb.decode()
+    pie = "data:image/png;base64," + ims
+    buffer.close()
+    plt.close()
+    return pie
