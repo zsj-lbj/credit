@@ -144,8 +144,20 @@ for i in range(len(chinese_col)):
     dic = {english_col[i]:chinese_col[i]}
     eng_chi.update(dic)#用字典来存储英文字段和中文字段的对照关系
 
+def change_str_to_num(x):
+    if x ==-1:
+        return '降低'
+    if x==0:
+        return '维持'
+    if x==1:
+        return  '调高'
+
 def element_diag(stock_id):
     obj = models.element_contrib.objects.filter(stock_id=stock_id).values()
+    obj1 = models.enterprise_data.objects.filter(stock_id=stock_id).values()
+    credit_str =obj1 [0]['credit_str']
+    credit_change = change_str_to_num(obj1[0]['credit_change'])
+    print(credit_str,credit_change)
     obj = obj[0]#queryset转字典
     field_name = []
     field_value = []
@@ -162,18 +174,23 @@ def element_diag(stock_id):
 
     df = pd.DataFrame({'字段名':chi_field_name,'值':field_value})
     df = df.sort_values(by=['值'],ascending=False)
+
     top_10 = plt_bar(df.iloc[0:10,0],df.iloc[0:10,1],'成分贡献图','属性','贡献度')
     mid_10 = plt_bar(df.iloc[10:20,0],df.iloc[10:20,1],'成分贡献图','属性','贡献度')
     last_10 = plt_bar(df.iloc[20:,0],df.iloc[20:,1],'成分贡献图','属性','贡献度')
     element_par_info = [top_10,mid_10,last_10]
-    print(df.iloc[0:10,0])
-    element_pie_info = plt_pie(df.iloc[0:5,1],df.iloc[0:5,0])
 
+    top_10_pie = plt_pie(df.iloc[0:10,1]/df.iloc[0:10,1].sum(),df.iloc[0:10,0])
+    mid_10_pie = plt_pie(df.iloc[10:20,1]/df.iloc[10:20,1].sum(),df.iloc[10:20,0])
+    last_10_pie = plt_pie(df.iloc[20:,1]/df.iloc[20:,1].sum(),df.iloc[20:,0])
+    element_pie_info =[top_10_pie,mid_10_pie,last_10_pie]
 
-    return element_par_info,element_pie_info
+    data = {'element_par_info':element_par_info,'element_pie_info':element_pie_info,'credit_str':credit_str,'credit_change':credit_change}
+
+    return data
 
 def plt_bar(x,y,title,xlabel,ylabel):
-    plt.figure(figsize=(6, 9))
+    plt.figure(figsize=(6, 3.8))
     plt.rcParams['font.sans-serif'] = ["SimHe", "KaiTi", "SimHei", "FangSong"]
     plt.title(title, fontsize=20)  # 标题，并设定字号大小
     plt.xlabel(xlabel, fontsize=1)  # 设置x轴，并设定字号大小
@@ -182,7 +199,7 @@ def plt_bar(x,y,title,xlabel,ylabel):
     plt.bar(x, y, alpha=0.6, width=0.8, facecolor='skyblue',
             edgecolor='darkblue')
     buffer = BytesIO()
-    plt.savefig(buffer)
+    plt.savefig(buffer,bbox_inches='tight',pad_inches=0.0)
     plot_data = buffer.getvalue()
     imb = base64.b64encode(plot_data)  # 对plot_data进行编码
     ims = imb.decode()
@@ -194,14 +211,13 @@ def plt_bar(x,y,title,xlabel,ylabel):
 def plt_pie(size,labels):
     plt.rcParams['font.sans-serif'] = ["SimHe", "KaiTi", "SimHei", "FangSong"]
     plt.figure(figsize=(6,9))
-    colors = ['dodgerblue', 'orangered', 'limegreen', 'cyan', 'gold']
-    plt.pie(size, labels=labels, colors=colors,autopct='%1.1f%%', shadow=False, startangle=150,pctdistance = 0.8)
-    plt.legend(loc=3)
+    # colors = ['dodgerblue', 'orangered', 'limegreen', 'cyan', 'gold']
+    plt.pie(size, labels=labels,autopct='%1.1f%%', shadow=False, startangle=150,pctdistance = 0.8)
 
     # plt.axis('equal')
 
     buffer = BytesIO()
-    plt.savefig(buffer)
+    plt.savefig(buffer,bbox_inches='tight',pad_inches=0.0)
     plot_data = buffer.getvalue()
     imb = base64.b64encode(plot_data)  # 对plot_data进行编码
     ims = imb.decode()

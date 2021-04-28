@@ -1,0 +1,112 @@
+{%  extends 'htmltemplate.html' %}
+{% block js %}
+    <script>
+    $(function (){
+        $("#modify").click(function (){
+            $("#nickname").removeAttr('disabled');
+            $("#age").removeAttr('disabled');
+            $("#phone").removeAttr('disabled');
+            $("#institute").removeAttr('disabled');
+            $("#img").removeAttr('disabled');
+
+
+        })
+    })
+
+    </script>
+{% endblock %}
+
+
+    {% block page_function %}
+        <div class="col-md-12" >
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                        {% if img_src %}
+                        <img class="profile-user-img img-fluid img-circle" src="{{img_src}}"
+                             alt="User profile picture">
+                        {% else %}
+                        <img class="profile-user-img img-fluid img-circle" src="/static/images/sufe.png"
+                 alt="User profile picture">
+                        {% endif %}
+                    </div>
+
+                    {% if nickname %}
+                    <h3 class="profile-username text-center" style="font-size:3rem ">{{ nickname }}</h3>
+                    {% else %}
+                    <h3 class="profile-username text-center" style="font-size:3rem ">俠之大者</h3>
+                    {% endif %}
+
+                    {% if institute %}
+                    <p class="text-muted text-center" style="font-size:3rem ">{{ institute }}</p>
+                    {% else %}
+                    <p class="text-muted text-center" style="font-size:3rem ">上海财经大学</p>
+                    {% endif %}
+
+                    <div class="card card-primary" style="font-size: 3rem;">
+                        <div class="card-header">
+                            <h3 class="card-title" style="font-size: 3rem;">个人信息</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form role="form" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">昵称</label>
+                                    <input disabled=disabled type="text" class="form-control" id="nickname" name="nickname"
+                                           placeholder="输入机构名" style="height:50px; font-size:3rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">年龄</label>
+                                    <input disabled=disabled type="text" class="form-control" id="age" name="age" placeholder="输入年龄" style="height:50px; font-size:3rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">电话</label>
+                                    <input disabled=disabled type="text" class="form-control" id="phone"
+                                           name="phone" placeholder="输入电话" style="height:50px; font-size:3rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">机构</label>
+                                    <input disabled=disabled type="text" class="form-control" name="institute" id="institute"
+                                           placeholder="输入机构名" style="height:50px; font-size:3rem;">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">上传头像（只能是jpg格式）</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <label class="custom-file-label" for="img" style="height:50px;" >选择头像</label>
+                                            <input disabled=disabled type="file" id="img" class="custom-file-input" name="img" >
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <button type="button" id="modify" class="btn btn-primary"
+                                                    style="height: 50px;font-size: 2rem">
+                                                修改
+                                            </button>
+                                        </div>
+                                        <div class="col-1">
+                                            <button type="submit" class="btn btn-primary"
+                                                    style="height: 50px;font-size: 2rem">
+                                                提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+    {% endblock %}

@@ -52,7 +52,12 @@
                         {#datatype: 'json',#}
                         success: function (args) {
                             $("#element_par").attr("src",args.element_par_info[0]);
-                            $("#element_pie").attr("src",args.element_pie_info);
+                            $("#element_pie").attr("src",args.element_pie_info[0]);
+                                <!-- h标签不能用.val()赋值，可以考虑用html，巨坑-->
+                            $("#credit_str").empty();
+                            $("#credit_str").html(args.credit_str);
+                            $("#credit_change").empty();
+                            $("#credit_change").html(args.credit_change);
 
                         }
 
@@ -70,6 +75,7 @@
                         {#datatype: 'json',#}
                         success: function (args) {
                             $("#element_par").attr("src", args.element_par_info[1]);
+                            $("#element_pie").attr("src",args.element_pie_info[1]);
                         }
 
                     })
@@ -86,6 +92,7 @@
                         success: function (args) {
 
                             $("#element_par").attr("src", args.element_par_info[2]);
+                            $("#element_pie").attr("src",args.element_pie_info[2]);
                         }
 
                     })
@@ -103,7 +110,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" style="height: auto">
+<body class="hold-transition sidebar-mini layout-fixed" style="font-size: 2rem;">
 <div class="wrapper">
 
     <!-- 顶部左侧三道杠和主页和contact-->
@@ -219,12 +226,12 @@
 
 
     <!-- 左侧功能框-->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <<aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
             <img src="/static/images/sufe.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-5"
                  style="opacity: .8;float:none">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">企业评级系统</span>
         </a>
 
         <!-- Sidebar -->
@@ -232,10 +239,21 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/static/images/lbj.png" class="img-circle elevation-2" alt="User Image" style="width:4.2rem">
+                    {% if img_src %}
+                        <img src="{{img_src}}" class="img-circle elevation-2"
+                             style="width:4.2rem">
+                    {% else %}
+                        <img src="/static/images/lbj.png" class="img-circle elevation-2" alt="User Image"
+                             style="width:4.2rem">
+                    {% endif %}
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    {% if nickname %}
+                        <a href="{% url 'profile' %}" class="d-block">{{ nickname }}</a>
+                    {% else %}
+                        <a href="{% url 'profile' %}" class="d-block">侠之大者</a>
+                    {% endif %}
+
                 </div>
             </div>
 
@@ -257,79 +275,32 @@
                             <li class="nav-item">
                                 <a href="{% url 'index' %}" class="nav-link active">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v1</p>
+                                    <p>主页</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./index2.html" class="nav-link">
+                                <a href="{% url 'opinion_input' %}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v2</p>
+                                    <p>观点录入</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="./index3.html" class="nav-link">
+                                <a href="{% url 'opinion_details' %}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v3</p>
+                                    <p>观点查询</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-copy"></i>
+                    <li class="nav-item">
+                        <a href="{% url 'credit' %}" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
                             <p>
                                 信用评级
-                                <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">6</span>
+
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Top Navigation + Sidebar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/boxed.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Boxed</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fixed Sidebar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fixed Navbar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fixed Footer</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Collapsed Sidebar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
 
                 </ul>
             </nav>
@@ -338,9 +309,9 @@
         <!-- /.sidebar -->
     </aside>
 
-    <!-- 信用评级往下 -->
+    <!-- 公司名字往下 -->
     <div class="content-wrapper">
-         <!-- 信用评级四个字 -->
+         <!-- 公司名字四个字 -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -360,14 +331,14 @@
                     <div class="position-relative p-3 bg-cyan" style="height: 180px">
                         <div class="ribbon-wrapper ribbon-xl">
                             <div class="ribbon bg-blue text-lg">
-                                Ribbon
+                                诚信
                             </div>
                         </div>
                         <br>
 
-                        <h2 style="font-size: 50px;text-align: center;">企业信用评级变动方向</h2>
+                        <h2 style="font-size: 50px;text-align: center;">企业信用评级</h2>
 
-                        <h3 style="font-size: 50px;text-align: center;">.ribbon</h3>
+                        <h3 id="credit_str" style="font-size: 50px;text-align: center;">抱诚守真</h3>
                     </div>
                 </div>
 
@@ -375,16 +346,16 @@
                     <div class="position-relative p-3 bg-gray" style="height: 180px">
                         <div class="ribbon-wrapper ribbon-xl">
                             <div class="ribbon bg-warning text-lg">
-                                Ribbon
+                                信用
                             </div>
                             <br>
 
 
                         </div>
                             <br>
-                            <h2 style="font-size: 50px;text-align: center;">企业信用评级</h2>
+                            <h2 style="font-size: 50px;text-align: center;">企业信用评级变动方向</h2>
 
-                            <h3 style="font-size: 50px;text-align: center;">.ribbon</h3>
+                            <h3 id="credit_change" style="font-size: 50px;text-align: center;">信用至上</h3>
                     </div>
                 </div>
 
@@ -423,7 +394,7 @@
                                      style="position: relative; min-height: 100px;align-items: center;">
 
 
-                                        <img id="element_par" src="/static/images/sequence_diag.png" / >
+                                        <img id="element_par" src="/static/images/credit.png" / >
 
                                 </div>
                                 <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
@@ -446,16 +417,7 @@
                                 <i class="fas fa-chart-pie mr-1"></i>
                                成分饼图
                             </h3>
-                            <div class="card-tools">
-                                <ul class="nav nav-pills ml-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </div><!-- /.card-header -->
 
                         <div class="card-body">
@@ -464,7 +426,7 @@
                                 <div class="posdiv chart tab-pane active" id="revenue-chart"
                                      style="position: relative; min-height: 100px;align-items: center;">
 
-                                        <img id="element_pie" src="/static/images/opinion_pie.png" / >
+                                        <img id="element_pie" src="/static/images/credit.png" / >
 
                                 </div>
 
@@ -488,7 +450,7 @@
 </div>
 <!-- 底部版权说明 -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2021 <a href="http://adminlte.io">Chosenone</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.0.5

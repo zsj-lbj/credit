@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/static/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/static/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/static/plugins/summernote/summernote-bs4.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+   <script type="text/javascript" src="/static/plugins/jquery/jquery.js"></script>
+    <script>
+
+        $(function () {
+
+
+
+                $("#top_10").click(function () {
+
+                    $.ajax({
+                        //url:
+                        //不写默认往当前页面提交
+                        //
+                        type: 'post',
+                        {#data: ，#}
+                        {#datatype: 'json',#}
+                        success: function (args) {
+                            $("#element_par").attr("src",args.element_par_info[0]);
+                            $("#element_pie").attr("src",args.element_pie_info[0]);
+                                <!-- h标签不能用.val()赋值，可以考虑用html，巨坑-->
+                            $("#credit_str").empty();
+                            $("#credit_str").html(args.credit_str);
+                            $("#credit_change").empty();
+                            $("#credit_change").html(args.credit_change);
+
+                        }
+
+                    })
+                })
+
+                {#$(".summernote").summernote();#}
+
+        })
+
+
+    </script>
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed" style="height: auto;font-size: 2rem;">
+<div class="wrapper">
+
+    <!-- 顶部左侧三道杠和主页和contact-->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{% url 'index' %}" class="nav-link">主页</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+
+
+    </nav>
+
+
+    <!-- 左侧功能框-->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="/static/images/sufe.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-5"
+                 style="opacity: .8;float:none">
+            <span class="brand-text font-weight-light">企业评级系统</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    {% if img_src %}
+                        <img src="{{img_src}}" class="img-circle elevation-2"
+                             style="width:4.2rem">
+                    {% else %}
+                        <img src="/static/images/lbj.png" class="img-circle elevation-2" alt="User Image"
+                             style="width:4.2rem">
+                    {% endif %}
+                </div>
+                <div class="info">
+                    {% if nickname %}
+                        <a href="{% url 'profile' %}" class="d-block">{{ nickname }}</a>
+                    {% else %}
+                        <a href="{% url 'profile' %}" class="d-block">侠之大者</a>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                舆情分析
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'index' %}" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>主页</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'index' %}" class="nav-link active">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>股评录入</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'opinion_details' %}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>观点查询</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-copy"></i>
+                            <p>
+                                信用评级
+                                <i class="fas fa-angle-left right"></i>
+{#                                <span class="badge badge-info right">6</span>#}
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Top Navigation</p>
+                                </a>
+                            </li>
+
+                    </li>
+
+
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- 公司名字往下 -->
+    <div class="content-wrapper">
+         <!-- 公司名字四个字 -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <h1 id="firmname" style="text-align: center;" class="m-0 text-dark">{{ firmname }}</h1>
+                    </div><!-- /.col -->
+
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+
+
+        <!-- 信用评级和评级变动方向 -->
+        <section class="content">
+      <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">观点录入</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post">
+                  <div class="card-body">
+{#                      <div class="row">#}
+                          <div class="col-sm-6">
+
+                              <label >股票代码</label>
+                              <input type="text" class="form-control" name="stock_id" placeholder="请输入股票代码" style="height: 40px;">
+
+
+                          </div>
+                          <div class="col-sm-6">
+
+                              <label >日期</label>
+                              <input type="date" style="height: 40px;" class="form-control" placeholder="起始日期" name="date">
+
+                          </div>
+                        <br>
+                        <br>
+                      <div class="form-group">
+                        <label>股票评论</label>
+
+                        <textarea class="form-control" name="opinion" rows="3" placeholder="请输入评论"></textarea>
+                      </div>
+                      <br>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+              </form>
+
+            </div>
+
+
+
+        </section>
+    </div><!-- /.container-fluid -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- 底部版权说明 -->
+<footer class="main-footer">
+    <strong>Copyright &copy; 2021 <a href="http://adminlte.io">Chosenone</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 3.0.5
+    </div>
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/static/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="/static/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="/static/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/static/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/static/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/static/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/static/plugins/moment/moment.min.js"></script>
+<script src="/static/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/static/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/static/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/static/dist/js/demo.js"></script>
+<!-- Ion Slider -->
+<script src="/static/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<!-- Bootstrap slider -->
+<script src="/static/plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
+</body>
+</html>
