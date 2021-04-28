@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/static/plugins/jquery/jquery.js"></script>
+    <script>
+
+        $(function () {
+                {#alert("555")#}
+                $("#btn6").click(function () {
+
+                    $.ajax({
+                        //url:
+                        //不写默认往当前页面提交
+                        //
+                        type: 'post',
+                        data: {'input1': $("#btn3").val(), 'input2': $("#btn4").val()},
+                        success: function (args) {
+                            alert( args);
+                            console.log(args, typeof args);
+                            {#var args = jQuery.parseJSON(args);#}
+                            $("#btn5").val(args.sum);
+                        }
+                    })
+                })
+
+
+
+            }
+        )
+
+
+    </script>
+</head>
+<body>
+<input type="text" id="btn3">
+<input type="text" id="btn4">
+<input type="text" id="btn5">
+<input type="button" value="hh " id="btn6">
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<h1>欢迎来到登陆页面</h1>#}
+{#<form action="/login/" method="post">#}
+{##}
+{#    用户名:<input type="text" name="uname">#}
+{#    密码：<input type="password" name="psd">#}
+{#    <input type="submit">#}
+{#</form>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .background{
+             width: 100%;
+             height: 100%;
+             background-image: url(/static/images/background.jpg);
+             background-size: cover;
+             background-position: center;
+             position: relative;
+        }
+    </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/plugins/fontawesome-free/css/all.min.css">
+{#  <link rel="stylesheet" href="/mystatic/plugins/fontawesome-free/css/all.min.css">#}
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+<div class="background">
+<div class="login-box" style="top: 10%;left:35%;position: absolute;">
+  <div class="login-logo">
+    <a href="{% url 'index2' %}" style="color: white"><b>企业信用评级系统</b>ECS</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form action="" method="post">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="用户名" name="user">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-desktop"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="密码" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+{#          <div class="col-8">#}
+{#            <div class="icheck-primary">#}
+{#              <input type="checkbox" id="remember">#}
+{#              <label for="remember">#}
+{#                Remember Me#}
+{#              </label>#}
+{#            </div>#}
+{#          </div>#}
+          <!-- /.col -->
+          <div class="col-4" style="top:50%;left: 35%;">
+            <button type="submit" class="btn btn-primary btn-block">登陆</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mb-3">
+        <p>{{ tip }}</p>
+        <a href="{% url 'forgot_password' %}" class="btn btn-block btn-primary">
+          <i class="fab  mr-2"></i> 忘记密码
+        </a>
+
+        <a href="{% url 'register' %}" class="btn btn-block btn-danger">
+          <i class="fab  mr-2"></i> 注册新用户
+        </a>
+{#      </div>#}
+{#      <!-- /.social-auth-links -->#}
+{##}
+{#      <p class="mb-1">#}
+{#        <a href="forgot-password.html">I forgot my password</a>#}
+{#      </p>#}
+{#      <p class="mb-0">#}
+{#        <a href="register.html" class="text-center">Register a new membership</a>#}
+{#      </p>#}
+{#    </div>#}
+    <!-- /.login-card-body -->
+  </div>
+</div>
+      </div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="/static/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/dist/js/adminlte.min.js"></script>
+
+</body>
+</html>

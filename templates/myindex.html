@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/images/favicon.ico" rel="shortcut icon">
+</head>
+<body>
+<h1>index页面</h1>
+<form action="/index/?a=1&b=2" method="post" enctype="multipart/form-data">
+    用户名：<input type="file" name="username">
+    <br>
+    性别:<input type="radio" name="sex">男
+        性别:<input type="radio" name="sex">女
+    <br>
+    爱好：
+    <input type="checkbox" name="hobby" value="1">篮球
+    <input type="checkbox" name="hobby" value="2">足球
+    <input type="checkbox" name="hobby" value="3">羽毛球
+
+    <input type="submit">
+</form>
+
+{%  include 'zujian.html' %}
+</body>
+</html>

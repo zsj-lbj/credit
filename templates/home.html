@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load mytags %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>$Title$</title>
+</head>
+<body>
+<h1>这是我们的首页</h1>
+<h2>{{ size }}</h2>
+<p style="color:red;">{{ size|default:'目前没有任何内容' }}</p>
+<h3>{{ name|slice:"5:-2" }}</h3>
+<h2>{{ a_tag|safe}}</h2>
+<p>{{ ss|truncatechars:'9' }}</p>
+<p>{{ list|join:'+' }}</p>
+<ul>
+    {% for h in list  %}
+    <li>{{ forloop.counter }}---{{ h }}</li>
+    {% endfor %}
+
+
+</ul>
+<ul>
+    {% for i in dic %}
+{#    <!--直接循环字典名称，输出的是字典的Key,要循环字典的值，要用dic.values>#}
+    <li>{{ i|reversal}}</li>
+    {% endfor %}
+</ul>
+<div>
+    {% add ss aa %}
+
+</div>
+<img src="/static/images/hsy.jpg" alt="">
+
+</body>
+</html>

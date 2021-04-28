@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{#万能据点号，方法不能加括号，意味着不能传参数进来#}
+
+</body>
+</html>
+
+容器级标签：div ol ul li dl dt dd h1-h6
+文本级标签：span img b u i
+空白折叠现象：
+<p> hsy     zsj</p>中间的空格只会显示一个，除非用<p>hsy &nbsp;&nbsp; zsj</p>
+
+h标签
+<h1>hsy</h1> {# 从搜索引擎角度看，h1标签最先被搜索到，通常一个页面只有一个h1。用来制作网页Log #}
+<h2>hsy</h2>
+<h3>hsy</h3>    {#  每一级字体逐渐缩小#}
+
+p标签
+<p></p>  {#  将文字一段一段的隔开#}
+
+img标签
+<img src="" alt="图片加载失效了" width="120px" height="" title="我是鼠标">{# alt 图片加载出来时替换文本
+图片高度和宽度通常只设定一个，不然图片就比例不对了  title：鼠标悬停文字#}
+
+锚标签anchor
+<a href="" target="_blank"></a>{# 引用超级链接 hypertext reference target="_blank使得打开一个新的页面#}
+<a href="anchor">锚点</a>点击锚点，会跳转到下方anchor的位置
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<p>content</p>
+<a name="anchor"></a>
+
+或者方法二：
+<a href="anchor">锚点</a>点击锚点，会跳转到下方anchor的位置
+<p>content</p>
+<p>content</p>
+<h2 id="anchor"></h2>用其他标签的id属性标识锚点
+
+无序列表 unordered list
+<ul>
+   <l>
+       <ul>
+           <l></l>
+           <l></l>
+           <l></l>
+       </ul>
+   </l> ul标签只能嵌套<l></l>标签，不能嵌套其他的，但是ul里的l标签可以继续嵌套其他的
+</ul>
+
+有序标签 ordered list
+<or>
+    <l>ranking 1</l>
+    <l>ranking 2</l>
+    <l>ranking 3</l>
+</or>
+
+定义列表
+1、定义一个标题和内容自定义列表结构
+dl:defination list 表示创建一个自定义结构
+dt:definaiton term 定义主题或定义述语，表示一个列表的主题
+dd:definaiton description 定义解释项
+dl只能放dd和dt里，dd和dt是同级关系，dl内部可以嵌套多组dt和dd
+
+表格
+表格主要有三种标签组成
+tb table
+tr table row
+td table dock
+
+<table border="1" style="border-bottom-color: aliceblue">
+    <tr>
+        <th></th>th是表头
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>第1行</td>
+        <td>第2行</td>
+        <td>第3行</td>
+        <td>第4行</td>
+    </tr>
+</table>
+
+表格分区
+caption 表格主题
+thead 表格头部tr>th
+tbody 表格主体tr>td
+<table>
+    <caption></caption>
+    <thead></thead>
+    <tdoby></tdoby>
+</table>
+
+form表单
+form标签
+<form method="post" action="数据提交位置"></form>
+input标签
+<input type="password" value="设置默认显示内容" placeholder="请输入用户名">
+<input type="type" value="设置默认显示内容" placeholder="请输入用户名">
+单选框
+<input type="radio" name="hsy">
+<input type="radio" name="hsy">
+<input type="radio" name="hsy"> 单选标签必须用同一个name
+多选框
+<input type="checkbox" name="hsy">football
+<input type="checkbox" name="hsy" checked="checked">pingpong，默认选中
+<input type="checkbox" name="hsy">badminton
+label 标签
+<label >
+    <input type="checkbox" name="hsy">football
+</label>label标签使得点击football也可以选中
+
+textfield
+自我介绍
+<textarea rows="5" cols="50" placeholder="请输入内容" style="resize:none"></textarea>
+style="resize:none"不允许拖动文本框修改大小
+
+下拉菜单
+<select name="" id="">
+    <option value="" selected="selected">北京</option>默认选中北京
+    <option value="">上海</option>
+</select>
+
+字符实体
+以&开头，;结尾
+&nbsp;  &lt;小于号  &copy;版权符号 &
+
+div和span
+俗称盒子，div主要用来页面布局的划分，没有明确语义，span用来分析划分
+<div>
+    遇见<span style="color:red">hsy</span>真高兴
+
+</div>
+
+
+CSS：cascading style sheet 层叠样式表
+
+2.1文字三属性
+2.1.1color
+<p style="color :red;"></p>
+<p style="color :rgb(0,0,255);"></p>
+<p style="color :#0000FF;"></p>
+
+2.1.2 font-size--以px为单位
+<p style="font-size: 18px;"
+
+2.1.3 font-family--如果页面是中英文混杂的，需要同时设置中文和英文字体
+<p style="font-family:'微软雅黑','宋体','Arial'"></p>
+
+2.2 盒子三属性
+
+<div style="width:100px;height:100px;background-color: red"></div>
+
+2.3 CSS引用
+
+2.3.1行内式样式表
+<div style="width:100px;height:100px;background-color: red"></div>
+
+2.3.2内嵌式
+在head的style里写
+<style>
+    div{
+        width:100px;
+        height: 200px;
+    }
+</style>
+再在body里写
+<div>我爱hsy</div>
+
+2.3.3 外链式
+在head里头写
+<link rel="stylesheet" href="css/1.css">
+再在body里写
+<div>我爱hsy</div>
+
+2.4选择器
+基础选择器：标签选择器，id选择器，类名选择器
+高级选择器：后代选择器，
+
+2.4.1标签选择器:选择所有同名标签
+
+2.4.2 id选择器:选择所有同名id
+<head>
+    <style>
+        #p1{
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <p id="p1">hsy</p>
+</body>
+
+2.4.3 类名选择器：选中所有同名class属性标签
+<head>
+    <style>
+        .p1{
+            color:blue;
+        }
+        .p2{
+            font-size: 19px;
+        }
+    </style>
+</head>
+<body>
+    <p class="p1">hsy</p>
+    <p class="p1 p2">hsy</p>
+    <p class="p1">hsy</p>
+</body>
+
+id class 命名第一个字符必须是字母，之后可以是数字，字母，下划线
+
+2.4.4 通配符选择器
+<head>
+    <style>
+       *{
+           font-size: 19px;
+           margin: 0;
+           padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <p class="p1">hsy</p>
+    <div class="p1 p2">hsy</div>
+    <h2 class="p1">hsy</h2>
+</body>
+
+2.4.5 后代选择器
+<head>
+    <style>
+       .box ul li{
+           font-size: 19px;
+           margin: 0;
+           padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul></ul>
+        <li></li>
+    </div>
+</body>
+
+2.4.6 交集选择器
+
+2.4.7 并集选择器：为多个不同标签设置属性
+
+<head>
+    <style>
+        ul,li{
+           font-size: 19px;
+           margin: 0;
+           padding: 0;
+        }
+    </style>
+</head>
+<body>
+        <ul></ul>
+        <li></li>
+</body>
+
+
+2.5 css的继承性和层叠性
+CSS只可以继承文字属性
+<style>
+    .hsy{color:red;}
+    p{font-size:15px;}
+    #hsy{text-decoration: underline;}
+</style>
+
+
+<p class="hsy" id="hsy">hsy</p>
+设置同一个属性，id选择器>class选择器>标签名选择器
+选中同一个标签：数选择器！！！先数id数量，再m数类数量，再数标签
+都没有选中标签，用就近原则
+
+
+2.6.
+font-size: 单位有px 和em, em表示为继承字号的几倍
+line-height: 文字在一定的高度内垂直居中
+font-weight: 100-700一整百为单位
+             单词表示：normal bold(和700相等)
+font-style: 用来设置文字是否有倾斜，normal italic(斜体的) oblique(倾斜样式,与字体无关)
+属性综合写法
+<style>
+    .fontfont{
+        font:italic bold 24px '微软亚和'
+    }
+</style>
+text-align: center right left
+text-decoration:none overline(上划线) line-through(中划线) underline(下划线)
+text-indent:80px  设置首行缩进
+
+2.7 盒模型
+width height padding(内边距) margin(外边距) border(边界)
+border-width:10px 20px 30px 40px
+border-style:solid dashed dotted double groove（边框凹陷） ridge（边框凸显）（ inset（内容凹陷效果） outset(内容突出效果）
+border-color: red blue yellow pink 分别对应上右下左
+margin:10px 20px 分别对应上下边距，左右边距
+
+2.8 清楚默认样式
+ul,li{
+        padding=0;
+        margin=0;
+        list-styl=none;
+        }
+
+*{ padding=0;
+        margin=0;}
+
+<input type="button" value="button" />
